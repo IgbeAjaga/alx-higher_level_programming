@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+filename="$PYFILE"
+python3 -m py_compile "$filename"
+compiled_filename="${filename}c"
+mv "__pycache__/$compiled_filename" "$compiled_filename"
+
