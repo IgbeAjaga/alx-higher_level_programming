@@ -5,4 +5,3 @@ for i in range(0, 10):
             print("{:02d}".format(j), end=", ")
         else:
             print("{:d}{:d}".format(i, j), end=", ")
-print("89")
