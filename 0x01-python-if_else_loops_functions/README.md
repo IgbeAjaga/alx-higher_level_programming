@@ -1,1 +1,1 @@
-This is loops and conditions in Python programming
+This is all about loops and conditions in Python
