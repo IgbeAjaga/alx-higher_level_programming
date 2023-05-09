@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-def uppercase(s):
-    for c in s:
+def uppercase(str):
+    for c in str:
         ascii_code = ord(c)
         if 97 <= ascii_code <= 122:  # Check if character is lowercase
             ascii_code -= 32  # Convert to uppercase
