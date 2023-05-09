@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-python3 -c "import py_compile; py_compile.compile(r'$PYFILE')" && mv ${PYFILE}c ${PYFILE%.*}.pyc
+python3 -c "import py_compile; py_compile.compile(r'$PYFILE..py')" && mv ${PYFILE}c ${PYFILE%.*}.pyc
