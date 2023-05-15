@@ -1,4 +1,6 @@
-#include "Python.h"
+#include "/usr/include/python3.8/Python.h"
+#include "/usr/include/python3.8/listobject.h"
+#include "/usr/include/python3.8"
 
 /**
  * print_python_list_info - Prints basic info about Python lists.
