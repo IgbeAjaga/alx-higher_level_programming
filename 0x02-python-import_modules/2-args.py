@@ -12,4 +12,3 @@ else:
     print("{} arguments:".format(num_args))
     for i, arg in enumerate(sys.argv[1:], start=1):
         print(f"{i}: {arg}")
-
