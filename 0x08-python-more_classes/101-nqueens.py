@@ -1,121 +1,83 @@
 #!/usr/bin/python3
-"""The N queens puzzle is the challenge of placing N
-non-attacking queens on an N×N chessboard
-
-Attributes:
-    board (list): A list of lists representing the chessboard.
-    result (list): A list of lists containing results.
-"""
 import sys
 
+def is_safe(board, row, col, N):
+    # Check if a queen can be placed at board[row][col]
+    # without attacking any previously placed queens
 
-def initial_board(n):
-    """Initialize an NxN chessboard"""
-    board = []
-    [board.append([]) for i in range(n)]
-    [row.append(' ') for i in range(n) for row in board]
-    return (board)
+    # Check the current row on the left side
+    for i in range(col):
+        if board[row][i] == 1:
+            return False
 
+    # Check the upper diagonal on the left side
+    i = row
+    j = col
+    while i >= 0 and j >= 0:
+        if board[i][j] == 1:
+            return False
+        i -= 1
+        j -= 1
 
-def copy_board(board):
-    """Return a copy of a chessboard."""
-    if isinstance(board, list):
-        return list(map(copy_board, board))
-    return (board)
+    # Check the lower diagonal on the left side
+    i = row
+    j = col
+    while i < N and j >= 0:
+        if board[i][j] == 1:
+            return False
+        i += 1
+        j -= 1
 
+    return True
 
-def get_result(board):
-    """Return the list of lists of a solved chessboard."""
-    result = []
-    for r in range(len(board)):
-        for c in range(len(board)):
-            if board[r][c] == "Q":
-                result.append([r, c])
-                break
-    return (result)
+def solve_nqueens(N):
+    board = [[0 for _ in range(N)] for _ in range(N)]
+    solutions = []
 
+    def solve_util(col):
+        if col == N:
+            # All queens are placed, add the current solution
+            solution = []
+            for row in range(N):
+                for col in range(N):
+                    if board[row][col] == 1:
+                        solution.append([row, col])
+            solutions.append(solution)
+            return True
 
-def xout(board, row, col):
-    """X spots on a chessboard.
+        # Try placing a queen in each row of the current column
+        for row in range(N):
+            if is_safe(board, row, col, N):
+                # Place the queen at board[row][col]
+                board[row][col] = 1
 
-    Args:
-        board (list): The chessboard.
-        row (int): The row where a queen was last played.
-        col (int): The column where a queen was last played.
-    """
-    for c in range(col + 1, len(board)):
-        board[row][c] = "x"
-    for c in range(col - 1, -1, -1):
-        board[row][c] = "x"
-    for r in range(row + 1, len(board)):
-        board[r][col] = "x"
-    for r in range(row - 1, -1, -1):
-        board[r][col] = "x"
-    c = col + 1
-    for r in range(row + 1, len(board)):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-        c = col - 1
-    for r in range(row - 1, -1, -1):
-        if c < 0:
-            break
-        board[r][c]
-        c -= 1
-    c = col + 1
-    for r in range(row - 1, -1, -1):
-        if c >= len(board):
-            break
-        board[r][c] = "x"
-        c += 1
-    c = col - 1
-    for r in range(row + 1, len(board)):
-        if c < 0:
-            break
-        board[r][c] = "x"
-        c -= 1
+                # Recur to place the rest of the queens
+                solve_util(col + 1)
 
+                # Backtrack and remove the queen from board[row][col]
+                board[row][col] = 0
 
-def repetition_solve(board, row, queens, result):
-    """Solving the repetition of an N-queens puzzle.
+    solve_util(0)
 
-    Args:
-        board (list): The chessboard.
-        row (int): The row.
-        queens (int): The number of queens placed.
-        result (list): A list of lists of results.
-    Returns:
-        result
-    """
-    if queens == len(board):
-        result.append(get_result(board))
-        return (result)
-
-    for c in range(len(board)):
-        if board[row][c] == " ":
-            tmp_board = copy_board(board)
-            tmp_board[row][c] = "Q"
-            xout(tmp_board, row, c)
-            result = repetition_solve(tmp_board, row + 1,
-                                        queens + 1, result)
-
-    return (result)
-
+    return solutions
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
-    if sys.argv[1].isdigit() is False:
+
+    try:
+        N = int(sys.argv[1])
+    except ValueError:
         print("N must be a number")
         sys.exit(1)
-    if int(sys.argv[1]) < 4:
+
+    if N < 4:
         print("N must be at least 4")
         sys.exit(1)
 
-    board = initial_board(int(sys.argv[1]))
-    result = repetition_solve(board, 0, 0, [])
-    for igbe in result:
-        print(igbe)
+    solutions = solve_nqueens(N)
+
+    for solution in solutions:
+        print(solution)
 
