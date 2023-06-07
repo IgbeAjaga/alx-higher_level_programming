@@ -1,75 +1,136 @@
 #!/usr/bin/python3
-import sys
+"""The N queens puzzle is the challenge of placing
+N non-attacking queens on an N×N chessboard
 
-def is_safe(board, row, col):
-    """Check if it is safe to place a queen at board[row][col]"""
-    # Check the current column on the same row
-    for i in range(col):
-        if board[row][i] == 1:
-            return False
+Attributes:
+    N (int): base number of queens, and length of board side in piece positions
+    players (list) of (list) of (list) of (int): list of all successful
+        solutions for given amount of columns checked
 
-    # Check the upper diagonal on the left side
-    i = row
-    j = col
-    while i >= 0 and j >= 0:
-        if board[i][j] == 1:
-            return False
-        i -= 1
-        j -= 1
+"""
+from sys import argv
 
-    # Check the lower diagonal on the left side
-    i = row
-    j = col
-    while i < N and j >= 0:
-        if board[i][j] == 1:
-            return False
-        i += 1
-        j -= 1
+if len(argv) is not 2:
+    print('Usage: nqueens N\n')
+    exit(1)
 
+if not argv[1].isdigit():
+    print('N must be a number\n')
+    exit(1)
+
+N = int(argv[1])
+
+if N < 4:
+    print('N must be at least 4\n')
+    exit(1)
+
+
+def board_column(board=[]):
+    """Adds a vertical zeroes to the right of the board
+    for queen arrangements in that column.
+
+    Args:
+        board (list) of (list) of (int): testing the rightmost
+        column for queen conflicts.
+
+    Returns:
+        modified 2D list
+
+    """
+    if len(board):
+        for row in board:
+            row.append(0)
+    else:
+        for row in range(N):
+            board.append([0])
+    return board
+
+
+def adding_queen(board, row, col):
+    """Sets queen to coordinates given in board.
+
+    Args:
+        board (list) of (list) of (int): testing the rightmost
+        column for queen conflicts.
+        row (int): first index
+        col (int): second index
+
+    """
+    board[row][col] = 1
+
+
+def new_safe_queen(board, row, col):
+    """checking that for a new queen placed in the rightmost
+    column is safe.
+
+    Args:
+        board (list) of (list) of (int): testing the rightmost
+        column for queen conflicts.
+        row (int): first index
+        col (int): second index
+
+    Returns:
+        True if no left side conflicts found for new queen, or False if a
+    conflict is found.
+
+    """
+    a = row
+    b = col
+
+    for i in range(1, N):
+        if (b - i) >= 0:
+            if (a - i) >= 0:
+                if board[a - i][b - i]:
+                    return False
+            if board[a][b - i]:
+                return False
+            if (a + i) < N:
+                if board[a + i][b - i]:
+                    return False
     return True
 
-def solve_nqueens(board, col):
-    """Recursive function to solve the N queens problem"""
-    if col >= N:
-        # All queens have been placed, print the solution
-        solution = []
-        for i in range(N):
-            for j in range(N):
-                if board[i][j] == 1:
-                    solution.append([i, j])
-        print(solution)
-        return
 
-    for i in range(N):
-        if is_safe(board, i, col):
-            # Place the queen at board[i][col]
-            board[i][col] = 1
+def coordinate_approach(players):
+    """Change a board to a series of row and column
+    indicies of each queen.
 
-            # Recur for the next column
-            solve_nqueens(board, col + 1)
+    Args:
+    players (list) of (list) of (list) of (int): list of all successful
+        solutions for number of colums checked lastly
 
-            # Backtrack and remove the queen from board[i][col]
-            board[i][col] = 0
+    Attributes:
+        igbe (list) of (list) of (int): each member list contains the row
+    column number for each queen found
 
-def nqueens(N):
-    """Solves the N queens problem"""
-    if not N.isdigit():
-        print("N must be a number")
-        sys.exit(1)
-    N = int(N)
-    if N < 4:
-        print("N must be at least 4")
-        sys.exit(1)
+    Returns:
+        igbe, the list of coordinates
 
-    # Create an empty N x N chessboard
-    board = [[0] * N for _ in range(N)]
+    """
+    igbe = []
+    for a, attempt in enumerate(players):
+        igbe.append([])
+        for i, row in enumerate(attempt):
+            igbe[a].append([])
+            for j, col in enumerate(row):
+                if col:
+                    igbe[a][i].append(i)
+                    igbe[a][i].append(j)
+    return igbe
 
-    solve_nqueens(board, 0)
+players = []
+players.append(board_column())
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: nqueens N")
-        sys.exit(1)
+for col in range(N):
+    new_players = []
+    for matrix in players:
+        for row in range(N):
+            if new_safe_queen(matrix, row, col):
+                temp = [line[:] for line in matrix]
+                adding_queen(temp, row, col)
+                if col < N - 1:
+                    board_column(temp)
+                new_players.append(temp)
+    players = new_players
 
-    nqueens(sys.argv[1])
-
+for item in coordinate_approach(players):
+    print(item)

@@ -129,7 +129,7 @@ class Rectangle:
         """Direct printing of instances.
 
         Returns:
-             creates a string representation of the 
+             creates a string representation of the
              rectangle suitable for printing.
 
         """

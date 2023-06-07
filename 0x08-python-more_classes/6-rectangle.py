@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Python - More Classes and Objects
 """
-
 class Rectangle:
     """a class Rectangle that defines a rectangle by:
     (based on 5-rectangle.py)
@@ -138,7 +137,7 @@ class Rectangle:
         """printing of instances.
 
         Returns:
-            creates a string representation of the 
+            creates a string representation of the
             rectangle suitable for printing.
 
         """

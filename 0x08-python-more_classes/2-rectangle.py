@@ -4,7 +4,7 @@
 
 
 class Rectangle:
-    """calculating the area or perimeter using the 
+    """calculating the area or perimeter using the
     width and heigt of a rectangle as arguments.
 
     Arguments:
@@ -88,7 +88,7 @@ class Rectangle:
         return self.__width * self.__height
 
     def perimeter(self):
-        """Returns the perimeter of a rectangle o fthe  given `width` and `height`
+        """Returns perimeter of a rectangle of the given width and height
 
         Attributes:
             __width (integer): rectangle horizontal dimension

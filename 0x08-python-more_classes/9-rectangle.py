@@ -18,7 +18,6 @@ class Rectangle:
         """Increments `number_of_instances` and calls setters for `__width`
         and `__height`.
 
-        
         Arguments:
         width: rectangle horizontal dimension with defaults 0
         height: rectangle vertical dimension with defaults 0
@@ -140,7 +139,7 @@ class Rectangle:
         """printing of instances.
 
         Returns:
-            creates a string representation of the 
+            creates a string representation of the
             rectangle suitable for printing.
 
         """
@@ -166,7 +165,7 @@ class Rectangle:
 
     @staticmethod
     def bigger_or_equal(rect_1, rect_2):
-        """Compares the area of two instances and returns the larger of the two.
+        """Compares the area of two instances and returns the larger one
 
         Args:
             rect_1 : first instance to compare

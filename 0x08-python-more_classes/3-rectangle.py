@@ -4,7 +4,7 @@
 
 
 class Rectangle:
-    """calculating the area or perimeter using the 
+    """calculating the area or perimeter using the
     width and heigt of a rectangle as arguments.
 
     Arguments:
@@ -106,7 +106,7 @@ class Rectangle:
             return (self.__width * 2) + (self.__height * 2)
 
     def _draw_rectangle(self):
-        """printing the rectangle represented 
+        """printing the rectangle represented
         by the current instance.
 
         Attributes:
@@ -130,7 +130,7 @@ class Rectangle:
         """Direct printing of instances.
 
         Returns:
-            The string representation of the 
+            The string representation of the
             rectangle suitable for printing.
 
         """
