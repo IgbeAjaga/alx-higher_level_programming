@@ -6,45 +6,23 @@
  * @p: A PyObject string object.
  */
 void print_python_string(PyObject *p) {
-    if (PyUnicode_Check(p)) {
-        Py_ssize_t length = PyUnicode_GET_LENGTH(p);
-        int is_unicode = PyUnicode_IS_UNICODE(p);
-        const char *value = PyUnicode_AsUTF8(p);
+    Py_ssize_t length;
+    Py_ssize_t i;
+    Py_UNICODE *unicode_str;
+    const char *ascii_str;
 
-        printf("[.] string object info\n");
-        printf("  type: %s\n", is_unicode ? "compact unicode object" : "compact ascii");
-        printf("  length: %zd\n", length);
-        printf("  value: %s\n", value);
-    } else {
-        printf("[.] string object info\n");
+    printf("[.] string object info\n");
+
+    if (!PyUnicode_Check(p)) {
         printf("  [ERROR] Invalid String Object\n");
+        return;
     }
-}
 
-int main(void) {
-    Py_Initialize();
+    length = PyUnicode_GET_LENGTH(p);
+    unicode_str = PyUnicode_AsUnicode(p);
+    ascii_str = PyUnicode_AsUTF8(p);
 
-    PyObject *s = PyUnicode_FromString("The spoon does not exist");
-    print_python_string(s);
-
-    s = PyUnicode_FromString("ложка не существует");
-    print_python_string(s);
-
-    s = PyUnicode_FromString("La cuillère n'existe pas");
-    print_python_string(s);
-
-    s = PyUnicode_FromString("勺子不存在");
-    print_python_string(s);
-
-    s = PyUnicode_FromString("숟가락은 존재하지 않는다.");
-    print_python_string(s);
-
-    s = PyUnicode_FromString("スプーンは存在しない");
-    print_python_string(s);
-
-    s = PyBytes_FromString("The spoon does not exist");
-    print_python_string(s);
-
-    Py_Finalize();
-    return 0;
+    printf("  type: %s\n", PyUnicode_IS_COMPACT_ASCII(p) ? "compact ascii" : "compact unicode object");
+    printf("  length: %ld\n", length);
+    printf("  value: %s\n", PyUnicode_IS_COMPACT_ASCII(p) ? (const char *)ascii_str : (const char *)unicode_str);
 }
