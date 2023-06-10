@@ -1,6 +1,10 @@
 #include <Python.h>
 #include <stdio.h>
 
+/**
+ * print_python_string - Prints information about Python strings.
+ * @p: A PyObject string object.
+ */
 void print_python_string(PyObject *p) {
     if (PyUnicode_Check(p)) {
         Py_ssize_t length = PyUnicode_GET_LENGTH(p);
@@ -20,7 +24,6 @@ void print_python_string(PyObject *p) {
 int main(void) {
     Py_Initialize();
 
-    // Test cases
     PyObject *s = PyUnicode_FromString("The spoon does not exist");
     print_python_string(s);
 
@@ -45,4 +48,3 @@ int main(void) {
     Py_Finalize();
     return 0;
 }
-
