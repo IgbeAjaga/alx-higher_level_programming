@@ -1,12 +1,5 @@
 #!/usr/bin/python3
-import numpy as np
+lazy_matrix_mul = __import__('101-lazy_matrix_mul').lazy_matrix_mul
 
-def lazy_matrix_mul(m_a, m_b):
-    try:
-        result = np.matmul(m_a, m_b)
-        return result.tolist()
-    except ValueError as e:
-        raise ValueError("m_a and m_b can't be multiplied") from e
-    except Exception as e:
-        raise type(e)("An error occurred during matrix multiplication") from e
-
+print(lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]))
+print(lazy_matrix_mul([[1, 2]], [[3, 4], [5, 6]]))
