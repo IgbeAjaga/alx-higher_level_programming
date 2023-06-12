@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Defines a class MyInt that inherits from int."""
 
 
 class MyInt(int):
@@ -6,21 +7,14 @@ class MyInt(int):
     MyInt class, inherits from int
     """
 
-    def __eq__(self, other):
+    def __eq__(self, value):
         """
         Overrides the == operator and inverts its behavior
         """
-        return super().__ne__(other)
+        return self.real != value
 
-    def __ne__(self, other):
+    def __ne__(self, value):
         """
         Overrides the != operator and inverts its behavior
         """
-        return super().__eq__(other)
-
-
-if __name__ == "__main__":
-    my_i = MyInt(3)
-    print(my_i)
-    print(my_i == 3)
-    print(my_i != 3)
+        return self.real == value
