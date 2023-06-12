@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""Defines a base geometry class BaseGeometry."""
+
+
 class BaseGeometry:
     """
     A class representing the base geometry.
@@ -25,7 +28,7 @@ class BaseGeometry:
             TypeError: If the value is not an integer.
             ValueError: If the value is less than or equal to 0.
         """
-        if not isinstance(value, int):
-            raise TypeError(f"{name} must be an integer")
+        if type(value) != int:
+            raise TypeError("{} must be an integer".format(name))
         if value <= 0:
-            raise ValueError(f"{name} must be greater than 0")
+            raise ValueError("{} must be greater than 0".format(name))
