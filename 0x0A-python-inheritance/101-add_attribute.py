@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+def add_attribute(obj, attribute, value):
+    """
+    Adds a new attribute to an object if possible
+    """
+    if hasattr(obj, '__dict__'):
+        setattr(obj, attribute, value)
+    else:
+        raise TypeError("can't add new attribute")
+
+
+class MyClass():
+    pass
+
+
+if __name__ == "__main__":
+    mc = MyClass()
+    add_attribute(mc, "name", "John")
+    print(mc.name)
+
+    try:
+        a = "My String"
+        add_attribute(a, "name", "Bob")
+        print(a.name)
+    except Exception as e:
+        print("[{}] {}".format(e.__class__.__name__, e))

@@ -1,0 +1,39 @@
+"""
+Test module for MyList class
+"""
+
+import doctest
+from io import StringIO
+from contextlib import redirect_stdout
+from my_module import MyList
+
+
+def test_print_sorted():
+    """
+    Test case for the print_sorted method of MyList class.
+    """
+    # Create a MyList instance
+    my_list = MyList()
+    my_list.append(5)
+    my_list.append(2)
+    my_list.append(4)
+    my_list.append(1)
+    my_list.append(3)
+
+    # Redirect the standard output to a StringIO object
+    output = StringIO()
+    with redirect_stdout(output):
+        my_list.print_sorted()
+
+    # Get the printed output
+    printed_output = output.getvalue().strip()
+
+    # Check if the printed output is sorted
+    expected_output = "[1, 2, 3, 4, 5]"
+    assert printed_output == expected_output, f"Expected: {expected_output}, Got: {printed_output}"
+
+
+# Run the test case
+if __name__ == "__main__":
+    doctest.testmod()
+    test_print_sorted()
