@@ -3,9 +3,7 @@
 import json
 
 
-def to_json_string(my_str):
-    """
-    A function that returns an object (
-    Python data structure) represented by a JSON string
-    """
+def from_json_string(my_str):
+    """Converts a JSON string to a Python object"""
     return json.loads(my_str)
+
