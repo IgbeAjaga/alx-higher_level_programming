@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""defines a student by: (based on 9-student.py)"""
+
 
 class Student:
     """Class representing a student"""
