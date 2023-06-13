@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+defines by public attribute
+"""
+
 
 class Student:
     """
