@@ -5,30 +5,41 @@ reads stdin line by line and computes metrics
 import sys
 
 
-def print_metrics(file_size, status_code_counts):
-    """
-    Prints the metrics
-    """
-    print("File size: {}".format(file_size))
-    for status_code, count in sorted(status_code_counts.items()):
-        print("{}: {}".format(status_code, count))
+def print_stats(total_size, status_codes):
+    """Prints the computed statistics"""
+    print("File size: {:d}".format(total_size))
+    for code in sorted(status_codes.keys()):
+        if status_codes[code] > 0:
+            print("{:s}: {:d}".format(code, status_codes[code]))
 
-file_size = 0
-status_code_counts = {}
+def parse_line(line):
+    """Parses a line and extracts relevant information"""
+    line_parts = line.split()
+    size = int(line_parts[-1])
+    code = line_parts[-2]
+    return size, code
 
-try:
-    for index, line in enumerate(sys.stdin, start=1):
-        tokens = line.split()
-        if len(tokens) >= 7:
-            status_code = tokens[-2]
-            try:
-                file_size += int(tokens[-1])
-                status_code_counts[status_code] = status_code_counts.get(status_code, 0) + 1
-            except ValueError:
-                pass
+def compute_metrics():
+    """Reads stdin line by line and computes metrics"""
+    total_size = 0
+    status_codes = {"200": 0, "301": 0, "400": 0, "401": 0, "403": 0, "404": 0, "405": 0, "500": 0}
+    count = 0
 
-        if index % 10 == 0:
-            print_metrics(file_size, status_code_counts)
+    try:
+        for line in sys.stdin:
+            count += 1
+            size, code = parse_line(line)
+            total_size += size
 
-except KeyboardInterrupt:
-    print_metrics(file_size, status_code_counts)
+            if code in status_codes:
+                status_codes[code] += 1
+
+            if count % 10 == 0:
+                print_stats(total_size, status_codes)
+
+    except KeyboardInterrupt:
+        print_stats(total_size, status_codes)
+        raise
+
+compute_metrics()
+
