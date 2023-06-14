@@ -1,8 +1,14 @@
 #!/usr/bin/python3
+"""
+reads stdin line by line and computes metrics
+"""
 import sys
 
+
 def print_metrics(file_size, status_code_counts):
-    """Prints the metrics"""
+    """
+    Prints the metrics
+    """
     print("File size: {}".format(file_size))
     for status_code, count in sorted(status_code_counts.items()):
         print("{}: {}".format(status_code, count))
