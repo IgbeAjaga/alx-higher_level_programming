@@ -4,7 +4,10 @@
 USE hbtn_0d_usa;
 
 -- Query to get the state_id of California from the states table using a subquery
-SELECT id FROM states WHERE name = 'California';
-
 -- Query to get all the cities of California from the cities table using the state_id obtained from the subquery
-SELECT * FROM cities WHERE state_id = (SELECT id FROM states WHERE name = 'California') ORDER BY id ASC;
+
+SELECT id, name FROM cities
+WHERE state_id = (
+      SELECT id FROM states
+      WHERE name = "California")
+ORDER BY id ASC;
