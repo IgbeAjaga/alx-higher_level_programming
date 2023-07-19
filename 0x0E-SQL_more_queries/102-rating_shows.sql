@@ -1,12 +1,10 @@
--- List all shows from hbtn_0d_tvshows_rate by their rating
+-- Task 19: List all shows from hbtn_0d_tvshows_rate by their rating
 
 -- Use the hbtn_0d_tvshows_rate database
 -- Query to list all shows and their rating sum
-SELECT tv_shows.title, SUM(rating) AS rating_sum FROM tv_shows
-WHERE tv_shows.id NOT IN (
-      SELECT tv_shows.id FROM tv_shows
-      JOIN tv_show_ratings ON tv_shows.id=tv_show_ratings.tv_show_id
-      JOIN tv_show_ratings ON tv_genres.id=tv_show_ratings.tv_genre_id
-       )
-GROUP BY tv_shows.title
+SELECT title, SUM(rating) AS rating_sum
+FROM tvshows_rate
+LEFT JOIN tv_show_ratings ON id = tv_show_ratings.show_id
+LEFT JOIN tv_rating_sum ON tv_show_rating_sum.rating_sum_id = tv_rating_sum.id
+GROUP BY title
 ORDER BY rating_sum DESC;
