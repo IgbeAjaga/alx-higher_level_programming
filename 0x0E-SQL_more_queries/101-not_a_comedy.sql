@@ -1,15 +1,12 @@
 -- List all shows without the genre Comedy
 
 -- Use the hbtn_0d_tvshows database
-USE hbtn_0d_tvshows;
-
--- Query to get the genre_id for Comedy
-SELECT id FROM tv_genres WHERE name = 'Comedy';
-
--- Query to list all shows without the genre Comedy
-SELECT title FROM tv_shows
-WHERE id NOT IN (
-    SELECT tv_show_id FROM tv_show_genres
-    WHERE genre_id = (SELECT id FROM tv_genres WHERE name = 'Comedy')
-)
-ORDER BY title ASC;
+-- Get the genre_id for Comedy
+-- List all shows without the genre Comedy
+SELECT name FROM tv_genres
+WHERE tv_genres.id NOT IN (
+      SELECT tv_genres.id FROM tv_genres
+      JOIN tv_show_genres ON tv_genres.id=tv_show_genres.genre_id
+      JOIN tv_shows ON tv_shows.id=tv_show_genres.show_id
+      WHERE tv_shows.title = "DEXTER" )
+ORDER BY tv_genres.name ASC;
