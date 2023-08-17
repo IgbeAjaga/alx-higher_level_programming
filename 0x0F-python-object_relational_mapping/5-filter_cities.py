@@ -20,17 +20,17 @@ if __name__ == "__main__":
     # Create a cursor
     cursor = db.cursor()
 
-    # Execute SQL query to get states matching the user input (using parameterized query)
-    query = "SELECT * FROM states WHERE name = %s ORDER BY id ASC"
+    # Execute SQL query to get city names of the specified state
+    query = "SELECT cities.name FROM cities JOIN states ON cities.state_id = states.id WHERE states.name = %s ORDER BY cities.id ASC"
     cursor.execute(query, (state_name,))
 
     # Fetch all results
     results = cursor.fetchall()
 
-    # Display results
-    for row in results:
-        print(row)
-
     # Close cursor and database connection
     cursor.close()
     db.close()
+
+    # Display results
+    city_names = [result[0] for result in results]
+    print(", ".join(city_names))
