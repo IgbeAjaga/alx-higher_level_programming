@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" takes in an argument and displays all values"""
+"""takes in an argument and displays all values"""
 import MySQLdb
 import sys
 
