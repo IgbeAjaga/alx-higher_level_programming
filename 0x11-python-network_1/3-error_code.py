@@ -1,15 +1,23 @@
 #!/usr/bin/python3
+"""
+Sends a POST request to the passed URL with the email as
+a parameter, and displays the body of the response
+"""
 import urllib.request
-import urllib.error
-import sys
+from sys import argv
+
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
-        url = sys.argv[1]
-
-        try:
-            with urllib.request.urlopen(url) as response:
-                body = response.read().decode('utf-8')
-                print(body)
-        except urllib.error.HTTPError as e:
-            print(f"Error code: {e.code}")
+    """
+    takes in a URL and an email, sends a POST request to the passed
+    URL with the email as a parameter, and displays the body of the response
+    """
+    url = argv[1]
+    call = urllib.request.Request(url)
+    try:
+        with urllib.request.urlopen(call) as response:
+            front_end = response.read()
+            frontend_str = front_end.decode('utf-8')
+            print(frontend_str)
+    except urllib.error.HTTPError as e:
+        print("Error code: {}".format(e.code))
