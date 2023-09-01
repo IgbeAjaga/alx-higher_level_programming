@@ -18,5 +18,5 @@ if __name__ == "__main__":
     call = requests.get(url, auth=(username, password))
     try:
         print(call.json().get('id'))
-    except:
+    except KeyError:
         pass
