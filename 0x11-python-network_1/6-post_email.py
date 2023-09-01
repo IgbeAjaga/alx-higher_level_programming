@@ -1,13 +1,17 @@
 #!/usr/bin/python3
+"""
+Sends a POST request to the passed URL with the email as a parameter,
+and displays the body of the response using requests
+"""
 import requests
-import sys
+from sys import argv
+
 
 if __name__ == "__main__":
-    url = sys.argv[1]
-    email = sys.argv[2]
-
-    data = {'email': email}
-    response = requests.post(url, data=data)
-
-    print("Your email is:", email)
-    print(response.text)
+    """
+    Takes in a URL and an email, sends a POST request to the passed URL with
+    the email as a parameter, displays the body of response using requests
+    """
+    url = argv[1]
+    call = requests.post(url, data={'email': argv[2]})
+    print(call.text)
