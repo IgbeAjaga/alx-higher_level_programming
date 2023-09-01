@@ -22,7 +22,6 @@ if __name__ == "__main__":
         if call.json() == {}:
             print("No result")
         else:
-            print("[{}] {}".format(call.json().get('id'),
-                  call.json().get('name')))
+            print("[{}] {}".format(call.json().get('id'), call.json().get('name')))
     except KeyError:
         print("Not a valid JSON")
