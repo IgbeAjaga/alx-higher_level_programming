@@ -1,19 +1,25 @@
 #!/usr/bin/python3
+"""
+list 10 commits (from the most recent to oldest) of the repository “rails”
+by the user “rails”
+"""
 import requests
-import sys
+from sys import argv
+
 
 if __name__ == "__main__":
-    repo_name = sys.argv[1]
-    owner_name = sys.argv[2]
-
-    url = f"https://api.github.com/repos/{owner_name}/{repo_name}/commits"
-    params = {'per_page': 10}  # Retrieve the 10 most recent commits
-
-    response = requests.get(url, params=params)
-
-    commits = response.json()
-
-    for commit in commits:
-        sha = commit.get('sha')
-        author_name = commit.get('commit').get('author').get('name')
-        print(f"{sha}: {author_name}")
+    """
+    list 10 commits (from the most recent to oldest) of the repository
+    “rails” by the user “rails”
+    """
+    repository = argv[1]
+    user = argv[2]
+    url = 'https://api.github.com/repos/{}/{}/commits'.format(user, repository)
+    call = requests.get(url)
+    res_list = call.json()
+    try:
+        for x in range(10):
+            print("{}: {}".format(res_list[x].get('sha'), res_list[x].
+                                  get('commit').get('author').get('name')))
+    except KeyError:
+        pass
