@@ -14,7 +14,7 @@ if __name__ == "__main__":
     """
     repo = argv[1]
     owner = argv[2]
-    url = 'https://api.github.com/repos/{}/{}/commits'.format(repo, owner)
+    url = 'https://api.github.com/repos/{}/{}/commits'.format(owner, repo)
     call = requests.get(url)
     res_list = call.json()
     try:
