@@ -12,9 +12,9 @@ if __name__ == "__main__":
     list 10 commits (from the most recent to oldest) of the repository
     “rails” by the user “rails”
     """
-    repository = argv[1]
-    user = argv[2]
-    url = 'https://api.github.com/repos/{}/{}/commits'.format(user, repository)
+    repo = argv[1]
+    owner = argv[2]
+    url = 'https://api.github.com/repos/{}/{}/commits'.format(repo, owner)
     call = requests.get(url)
     res_list = call.json()
     try:
