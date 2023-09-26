@@ -21,8 +21,7 @@ request(apiUrl, (error, response, body) => {
 
     // Filter the movies where "Wedge Antilles" (character ID 18) is present
     const moviesWithWedgeAntilles = movieData.results.filter((movie) =>
-      movie.characters.includes(
-	      'https://swapi-api.alx-tools.com/api/people/18/')
+      movie.characters.includes('https://swapi-api.alx-tools.com/api/people/18/')
     );
 
     // Print the number of movies with "Wedge Antilles"
